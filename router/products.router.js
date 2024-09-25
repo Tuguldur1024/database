@@ -16,7 +16,8 @@ productsRouter.get("/", async (request, response) => {
 productsRouter.post("/", async (request, response) => {
   const { productname, categoryid, price } = request.body;
   try {
-    const newProduct = sql`INSERT INTO products(productname, categoryid, price)
+    const newProduct =
+      await sql`INSERT INTO products(productname, categoryid, price)
                             Values(${productname}, ${categoryid}, ${price})`;
     response.status(200).json({ nemsen_product: { newProduct } });
   } catch (error) {
@@ -35,11 +36,11 @@ productsRouter.delete("/", async (request, response) => {
 });
 
 productsRouter.put("/", async (request, response) => {
-  const { id, firstName, lastName, email, address } = request.body;
+  const { id, productname, categoryid, price } = request.body;
   try {
-    await sql`Update customers
-                set firstname=${firstName}, lastname = ${lastName}, email=${email}, address=${address}
-                where customerid=${Number(id)};`;
+    await sql`Update products
+                set productname=${productname}, categoryid = ${categoryid}, price=${price}
+                where productid=${Number(id)};`;
     response.status(200).json({ message: "amjilttai update hiilee" });
   } catch (error) {
     response.status(400).json({ message: "Update uildel aldaa garlaa" });

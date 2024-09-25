@@ -10,10 +10,9 @@ app.use(express.json());
 
 const port = 8000;
 
-getPgVersion();
-
 app.use("/customers", customersRouter);
-app.use("orders", ordersRouter);
+app.use("/orders", ordersRouter);
+app.use("/products", productsRouter);
 
 app.listen(port, () => {
   console.log(`server is running at http://localhost:${port}`);
